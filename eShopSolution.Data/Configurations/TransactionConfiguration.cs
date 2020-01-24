@@ -1,5 +1,4 @@
 ﻿using eShopSolution.Data.Entities;
-using eShopSolution.Data.Enums;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;
@@ -8,18 +7,15 @@ using System.Text;
 
 namespace eShopSolution.Data.Configurations
 {
-    public class CategoryConfiguration : IEntityTypeConfiguration<Category>
+    public class TransactionConfiguration : IEntityTypeConfiguration<Transaction>
     {
-        public void Configure(EntityTypeBuilder<Category> builder)
+        public void Configure(EntityTypeBuilder<Transaction> builder)
         {
-            builder.ToTable("Categories");
+            builder.ToTable("Transactions");
 
             builder.HasKey(x => x.Id);
 
             builder.Property(x => x.Id).UseIdentityColumn();
-
-
-            builder.Property(x => x.Status).HasDefaultValue(Status.Active);
         }
     }
 }
