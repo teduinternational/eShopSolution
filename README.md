@@ -25,3 +25,5 @@
 - Create Pull request to us.
 
 ## Admin template: https://startbootstrap.com/templates/sb-admin/
+
+https://docs.microsoft.com/en-us/aspnet/core/security/authentication/cookie?view=aspnetcore-3.1
