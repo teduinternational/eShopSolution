@@ -35,7 +35,6 @@
                     <form method="post" asp-controller="User" asp-action="Logout">
                         <button type="submit" class="dropdown-item">Đăng xuất</button>
                     </form>
-                   
                 </div>
             </li>
         </ul>
@@ -58,8 +57,8 @@
                         </a>
                         <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
                             <nav class="sb-sidenav-menu-nested nav">
-                            <a class="nav-link" asp-controller="User" asp-action="Index">Danh sách</a>
-                            <a class="nav-link" asp-controller="User" asp-action="Create">Thêm mới</a>
+                                <a class="nav-link" asp-controller="User" asp-action="Index">Danh sách</a>
+                                <a class="nav-link" asp-controller="User" asp-action="Create">Thêm mới</a>
                             </nav>
                         </div>
                         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="false" aria-controls="collapsePages">
@@ -128,5 +127,6 @@
     <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js" crossorigin="anonymous"></script>
     <script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js" crossorigin="anonymous"></script>
     <script src="/assets/demo/datatables-demo.js"></script>
+    @RenderSection("Scripts", required: false)
 </body>
 </html>
