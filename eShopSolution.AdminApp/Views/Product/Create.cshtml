@@ -4,7 +4,21 @@
     ViewData["Title"] = "Tạo mới sản phẩm";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
+@section Scripts{
+    <script src="https://cdn.ckeditor.com/ckeditor5/21.0.0/classic/ckeditor.js"></script>
+    <script>
+        ClassicEditor
+            .create(document.querySelector('#txt_details'), {
+                // toolbar: [ 'heading', '|', 'bold', 'italic', 'link' ]
+            })
+            .then(editor => {
+                window.editor = editor;
+            })
+            .catch(err => {
+                console.error(err.stack);
+            });
+    </script>
+}
 <div class="container-fluid">
     <h1 class="mt-4">Tạo mới người dùng</h1>
     <ol class="breadcrumb mb-4">
@@ -17,7 +31,7 @@
         </div>
 
         <div class="card-body">
-            <div class="col-md-4">
+            <div class="col-md-8">
                 <form asp-action="Create" enctype="multipart/form-data" method="post">
                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                     <div class="form-group">
@@ -48,7 +62,7 @@
                     </div>
                     <div class="form-group">
                         <label asp-for="Details" class="control-label"></label>
-                        <textarea asp-for="Details" rows="5" class="form-control"></textarea>
+                        <textarea id="txt_details" asp-for="Details" rows="35" class="form-control"></textarea>
                         <span asp-validation-for="Details" class="text-danger"></span>
                     </div>
                     <div class="form-group">
