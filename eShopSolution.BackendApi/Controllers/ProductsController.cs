@@ -22,7 +22,7 @@ namespace eShopSolution.BackendApi.Controllers
         }
 
         [HttpGet("paging")]
-        public async Task<IActionResult> GetAllPaging([FromQuery]GetManageProductPagingRequest request)
+        public async Task<IActionResult> GetAllPaging([FromQuery] GetManageProductPagingRequest request)
         {
             var products = await _productService.GetAllPaging(request);
             return Ok(products);
@@ -38,7 +38,8 @@ namespace eShopSolution.BackendApi.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create([FromForm]ProductCreateRequest request)
+        [Consumes("multipart/form-data")]
+        public async Task<IActionResult> Create([FromForm] ProductCreateRequest request)
         {
             if (!ModelState.IsValid)
             {
@@ -54,7 +55,7 @@ namespace eShopSolution.BackendApi.Controllers
         }
 
         [HttpPut]
-        public async Task<IActionResult> Update([FromForm]ProductUpdateRequest request)
+        public async Task<IActionResult> Update([FromForm] ProductUpdateRequest request)
         {
             if (!ModelState.IsValid)
             {
@@ -87,7 +88,7 @@ namespace eShopSolution.BackendApi.Controllers
 
         //Images
         [HttpPost("{productId}/images")]
-        public async Task<IActionResult> CreateImage(int productId, [FromForm]ProductImageCreateRequest request)
+        public async Task<IActionResult> CreateImage(int productId, [FromForm] ProductImageCreateRequest request)
         {
             if (!ModelState.IsValid)
             {
@@ -103,7 +104,7 @@ namespace eShopSolution.BackendApi.Controllers
         }
 
         [HttpPut("{productId}/images/{imageId}")]
-        public async Task<IActionResult> UpdateImage(int imageId, [FromForm]ProductImageUpdateRequest request)
+        public async Task<IActionResult> UpdateImage(int imageId, [FromForm] ProductImageUpdateRequest request)
         {
             if (!ModelState.IsValid)
             {
@@ -137,6 +138,20 @@ namespace eShopSolution.BackendApi.Controllers
             if (image == null)
                 return BadRequest("Cannot find product");
             return Ok(image);
+        }
+
+        [HttpPut("{id}/categories")]
+        public async Task<IActionResult> CategoryAssign(int id, [FromBody] CategoryAssignRequest request)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            var result = await _productService.CategoryAssign(id, request);
+            if (!result.IsSuccessed)
+            {
+                return BadRequest(result);
+            }
+            return Ok(result);
         }
     }
 }
