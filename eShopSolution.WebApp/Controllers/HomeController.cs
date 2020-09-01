@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using eShopSolution.WebApp.Models;
+using Microsoft.AspNetCore.Localization;
+using Microsoft.AspNetCore.Http;
 
 namespace eShopSolution.WebApp.Controllers
 {
@@ -21,6 +23,18 @@ namespace eShopSolution.WebApp.Controllers
         public IActionResult Index()
         {
             return View();
+        }
+
+        [HttpGet]
+        public IActionResult SetCultureCookie(string cltr, string returnUrl)
+        {
+            Response.Cookies.Append(
+               CookieRequestCultureProvider.DefaultCookieName,
+               CookieRequestCultureProvider.MakeCookieValue(new RequestCulture(cltr)),
+               new CookieOptions { Expires = DateTimeOffset.UtcNow.AddYears(1) }
+           );
+
+            return LocalRedirect(returnUrl);
         }
 
         public IActionResult Privacy()
