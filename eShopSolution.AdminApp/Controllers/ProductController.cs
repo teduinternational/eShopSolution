@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using System.Threading.Tasks;
-using eShopSolution.AdminApp.Services;
+using eShopSolution.ApiIntegration;
+using eShopSolution.ApiIntegration;
 using eShopSolution.Utilities.Constants;
 using eShopSolution.ViewModels.Catalog.Products;
 using eShopSolution.ViewModels.Common;
