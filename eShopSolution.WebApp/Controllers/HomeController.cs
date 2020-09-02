@@ -8,20 +8,24 @@ using Microsoft.Extensions.Logging;
 using eShopSolution.WebApp.Models;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Http;
+using LazZiya.ExpressLocalization;
 
 namespace eShopSolution.WebApp.Controllers
 {
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly ISharedCultureLocalizer _loc;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, ISharedCultureLocalizer loc)
         {
             _logger = logger;
+            _loc = loc;
         }
 
         public IActionResult Index()
         {
+            var msg = _loc.GetLocalizedString("Featured Products");
             return View();
         }
 
