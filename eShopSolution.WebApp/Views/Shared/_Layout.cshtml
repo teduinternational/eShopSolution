@@ -1,4 +1,7 @@
-﻿<!DOCTYPE html>
+﻿@{
+    var culture = CultureInfo.CurrentCulture.Name;
+}
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8">
@@ -37,13 +40,15 @@
                 <div class="span6">Welcome!<strong> User</strong></div>
                 <div class="span6">
                     <div class="pull-right">
-                        <a href="product_summary.html"><span class="">Fr</span></a>
-                        <a href="product_summary.html"><span class="">Es</span></a>
-                        <span class="btn btn-mini">En</span>
-                        <a href="product_summary.html"><span>&pound;</span></a>
-                        <span class="btn btn-mini">$155.00</span>
-                        <a href="product_summary.html"><span class="">$</span></a>
-                        <a href="product_summary.html"><span class="btn btn-mini btn-primary"><i class="icon-shopping-cart icon-white"></i> [ 3 ] Itemes in your cart </span> </a>
+                        <language-nav language-label="NativeName"
+                                      cookie-handler-url="@(Url.Action("SetCultureCookie", "Home", new { area= "", cltr="{0}", returnUrl="{1}" }))">
+                        </language-nav>
+
+                        <a href="product_summary.html">
+                            <span class="btn btn-mini btn-primary">
+                                <i class="icon-shopping-cart icon-white"></i> [ 3 ] Itemes in your cart
+                            </span>
+                        </a>
                     </div>
                 </div>
             </div>
@@ -69,11 +74,13 @@
                         <button type="submit" id="submitButton" class="btn btn-primary">Go</button>
                     </form>
                     <ul id="topMenu" class="nav pull-right">
-                        <li class=""><a href="special_offer.html">Specials Offer</a></li>
-                        <li class=""><a href="normal.html">Delivery</a></li>
-                        <li class=""><a href="contact.html">Contact</a></li>
+                        <li class=""><a asp-route-culture="@culture" localize-content>Specials Offer</a></li>
+                        <li class=""><a asp-route-culture="@culture" localize-content>Delivery</a></li>
+                        <li class=""><a asp-route-culture="@culture" localize-content>Contact</a></li>
                         <li class="">
-                            <a href="#login" role="button" data-toggle="modal" style="padding-right:0"><span class="btn btn-large btn-success">Login</span></a>
+                            <a href="#login" role="button" data-toggle="modal" style="padding-right:0">
+                                <span class="btn btn-large btn-success"><localize>Login</localize></span>
+                            </a>
                             <div id="login" class="modal hide fade in" tabindex="-1" role="dialog" aria-labelledby="login" aria-hidden="false">
                                 <div class="modal-header">
                                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
