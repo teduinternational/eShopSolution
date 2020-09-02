@@ -145,4 +145,8 @@
     <value>Tiếng Việt</value>
     <comment>Layouts</comment>
   </data>
+  <data name="VIEW" xml:space="preserve">
+    <value>XEM</value>
+    <comment>/Home/Index</comment>
+  </data>
 </root>
