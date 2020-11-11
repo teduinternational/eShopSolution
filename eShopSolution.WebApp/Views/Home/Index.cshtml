@@ -1,6 +1,7 @@
 ﻿@model HomeViewModel
 @using eShopSolution.ViewModels.Catalog.Products;
 @inject LazZiya.ExpressLocalization.ISharedCultureLocalizer _loc;
+@inject Microsoft.Extensions.Configuration.IConfiguration Configuration;
 @{
     var culture = CultureInfo.CurrentCulture.Name;
 }
@@ -60,7 +61,7 @@
                                 <li class="span3">
                                     <div class="thumbnail">
                                         <i class="tag"></i>
-                                        <a href="@url"><img src="@item.ThumbnailImage" alt="@item.Name"></a>
+                                        <a href="@url"><img src="@(Configuration["BaseAddress"] + item.ThumbnailImage)" alt="@item.Name"></a>
                                         <div class="caption">
                                             <h5>@item.Name</h5>
                                             <h4><a class="btn" href="" localize-content>VIEW</a> <span class="pull-right">@item.Price.ToString()</span></h4>
@@ -84,7 +85,7 @@
         var url = $"/{culture}/{_loc["productUrl"]}/{item.Id}";
         <li class="span3">
             <div class="thumbnail">
-                <a href="@url"><img src="@item.ThumbnailImage" alt="@item.Name" /></a>
+                <a href="@url"><img src="@(Configuration["BaseAddress"] + item.ThumbnailImage)" alt="@item.Name" /></a>
                 <div class="caption">
                     <h5>@item.Name</h5>
                     <p>
