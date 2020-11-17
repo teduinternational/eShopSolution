@@ -1,0 +1,95 @@
+﻿@model eShopSolution.ViewModels.Catalog.Products.ProductCreateRequest
+
+@{
+    ViewData["Title"] = "Tạo mới sản phẩm";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section Scripts{
+    <script src="https://cdn.ckeditor.com/ckeditor5/21.0.0/classic/ckeditor.js"></script>
+    <script>
+        ClassicEditor
+            .create(document.querySelector('#txt_details'), {
+                // toolbar: [ 'heading', '|', 'bold', 'italic', 'link' ]
+            })
+            .then(editor => {
+                window.editor = editor;
+            })
+            .catch(err => {
+                console.error(err.stack);
+            });
+    </script>
+}
+<div class="container-fluid">
+    <h1 class="mt-4">Tạo mới người dùng</h1>
+    <ol class="breadcrumb mb-4">
+        <li class="breadcrumb-item"><a href="/">Trang chủ</a></li>
+        <li class="breadcrumb-item active">Tạo mới sản phẩm</li>
+    </ol>
+    <div class="card mb-4">
+        <div class="card-header">
+            <a class="btn btn-success" asp-action="Index" asp-controller="User">Về danh sách</a>
+        </div>
+
+        <div class="card-body">
+            <div class="col-md-8">
+                <form asp-action="Create" enctype="multipart/form-data" method="post">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-group">
+                        <label asp-for="Name" class="control-label"></label>
+                        <input asp-for="Name" class="form-control" />
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Price" class="control-label"></label>
+                        <input asp-for="Price" type="number" class="form-control" />
+                        <span asp-validation-for="Price" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="OriginalPrice" class="control-label"></label>
+                        <input asp-for="OriginalPrice" type="number" class="form-control" />
+                        <span asp-validation-for="OriginalPrice" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Stock" class="control-label"></label>
+                        <input asp-for="Stock" type="number" class="form-control" />
+                        <span asp-validation-for="Stock" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="Description" class="control-label"></label>
+                        <textarea asp-for="Description" rows="5" class="form-control"></textarea>
+                        <span asp-validation-for="Description" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Details" class="control-label"></label>
+                        <textarea id="txt_details" asp-for="Details" rows="35" class="form-control"></textarea>
+                        <span asp-validation-for="Details" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="SeoDescription" class="control-label"></label>
+                        <input asp-for="SeoDescription" class="form-control" />
+                        <span asp-validation-for="SeoDescription" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="SeoTitle" class="control-label"></label>
+                        <input asp-for="SeoTitle" class="form-control" />
+                        <span asp-validation-for="SeoTitle" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="SeoAlias" class="control-label"></label>
+                        <input asp-for="SeoAlias" class="form-control" />
+                        <span asp-validation-for="SeoAlias" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="ThumbnailImage" class="control-label"></label>
+                        <input asp-for="ThumbnailImage" type="file" class="form-control" />
+                        <span asp-validation-for="ThumbnailImage" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" value="Tạo mới" class="btn btn-primary" />
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

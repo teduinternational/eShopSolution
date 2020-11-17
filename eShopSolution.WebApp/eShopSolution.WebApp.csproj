@@ -1,9 +1,22 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\themes\less\oregional\" />
+  </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="LazZiya.ExpressLocalization" Version="4.0.2" />
+    <PackageReference Include="LazZiya.TagHelpers" Version="4.0.1" />
+    <PackageReference Include="Microsoft.IdentityModel.Tokens" Version="5.6.0" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.4" />
+    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="5.6.0" />
+  </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\eShopSolution.ApiIntegration\eShopSolution.ApiIntegration.csproj" />
+  </ItemGroup>
 </Project>

@@ -1,0 +1,101 @@
+﻿@model ProductCategoryViewModel
+
+@{
+    ViewData["Title"] = Model.Category.Name + (Model.Products.PageIndex == 1 ? "" : " - " + _loc["Page"] + " " + Model.Products.PageIndex);
+    ViewData["Description"] = Model.Category.Name + (Model.Products.PageIndex == 1 ? "" : " - " + _loc["Page"] + " " + Model.Products.PageIndex);
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var culture = CultureInfo.CurrentCulture;
+}
+@inject Microsoft.Extensions.Configuration.IConfiguration Configuration;
+@inject LazZiya.ExpressLocalization.ISharedCultureLocalizer _loc;
+<ul class="breadcrumb">
+    <li><a href="index.html">Home</a> <span class="divider">/</span></li>
+    <li class="active">Products Name</li>
+</ul>
+<h3> @Model.Category.Name <small class="pull-right"> 40 <localize>available products</localize> </small></h3>
+<hr class="soft" />
+<p>
+    Mô tả của ứng dụng (hard)
+</p>
+<hr class="soft" />
+<form class="form-horizontal span6">
+    <div class="control-group">
+        <label class="control-label alignL"><localize>Sort By</localize> </label>
+        <select>
+            <option>Priduct name A - Z</option>
+            <option>Priduct name Z - A</option>
+            <option>Priduct Stoke</option>
+            <option>Price Lowest first</option>
+        </select>
+    </div>
+</form>
+
+<div id="myTab" class="pull-right">
+    <a href="#listView" data-toggle="tab"><span class="btn btn-large"><i class="icon-list"></i></span></a>
+    <a href="#blockView" data-toggle="tab"><span class="btn btn-large btn-primary"><i class="icon-th-large"></i></span></a>
+</div>
+<br class="clr" />
+<div class="tab-content">
+    <div class="tab-pane" id="listView">
+        @for (int i = 0; i < Model.Products.Items.Count; i++)
+        {
+            var item = Model.Products.Items[i];
+            <div class="row">
+                <div class="span2">
+                    <img src="@(Configuration["BaseAddress"] + @item.ThumbnailImage) " alt="@item.Name" />
+                </div>
+                <div class="span4">
+                    <h3><localize>New | Available</localize></h3>
+                    <hr class="soft" />
+                    <h5>@item.Name</h5>
+                    <p>
+                        @item.Description
+                    </p>
+                    <a class="btn btn-small pull-right" href="product_details.html"><localize>Xem chi tiết</localize></a>
+                    <br class="clr" />
+                </div>
+                <div class="span3 alignR">
+                    <form class="form-horizontal qtyFrm">
+                        <h3> @item.Price.ToString("C", culture)</h3>
+                        <label class="checkbox">
+                            <input type="checkbox">  Adds product to compair
+                        </label><br />
+
+                        <a href="product_details.html" class="btn btn-large btn-primary"> <localize>Add to</localize> <i class=" icon-shopping-cart"></i></a>
+                        <a href="product_details.html" class="btn btn-large"><i class="icon-zoom-in"></i></a>
+                    </form>
+                </div>
+            </div>
+            <hr class="soft" />
+        }
+    </div>
+
+    <div class="tab-pane  active" id="blockView">
+        <ul class="thumbnails">
+            @for (int i = 0; i < Model.Products.Items.Count; i++)
+            {
+                var item = Model.Products.Items[i];
+                <li class="span3">
+                    <div class="thumbnail">
+                        <a href="/@culture.Name/@_loc["products"]/@item.Id"><img src="@(Configuration["BaseAddress"] + @item.ThumbnailImage)" alt="@item.Name" /></a>
+                        <div class="caption">
+                            <h5>@item.Name</h5>
+                            <p>
+                                @item.Description
+                            </p>
+                            <h4 style="text-align:center">
+                                <a class="btn" href="product_details.html"> <i class="icon-zoom-in"></i></a>
+                                <a class="btn" href="#"><localize>Add to</localize> <i class="icon-shopping-cart"></i></a>
+                                <a class="btn btn-primary" href="#">@item.Price.ToString("C", culture)</a>
+                            </h4>
+                        </div>
+                    </div>
+                </li>
+            }
+        </ul>
+        <hr class="soft" />
+    </div>
+</div>
+
+@await Component.InvokeAsync("Pager", Model.Products)
+<br class="clr" />
