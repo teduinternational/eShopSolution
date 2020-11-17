@@ -1,0 +1,99 @@
+﻿@model CheckoutViewModel
+@{
+    ViewData["Title"] = "Checkout";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@inject Microsoft.Extensions.Configuration.IConfiguration Configuration;
+@{
+    var culture = CultureInfo.CurrentCulture.Name;
+}
+<ul class="breadcrumb">
+    <li><a href="index.html">Home</a> <span class="divider">/</span></li>
+    <li class="active"> SHOPPING CART</li>
+</ul>
+<h3>
+    SHOPPING CART [ <small>@Model.CartItems.Count Item(s) </small>]
+    <a href="/" class="btn btn-large pull-right"><i class="icon-arrow-left"></i> Continue Shopping </a>
+</h3>
+<hr class="soft" />
+@if (TempData["SuccessMsg"] != null)
+{
+    <span class="alert alert-success">@TempData["SuccessMsg"]</span>
+}
+else
+{
+
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Product</th>
+                <th>Description</th>
+                <th>Quantity</th>
+                <th>Price</th>
+                <th>Total</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.CartItems)
+            {
+                <tr>
+                    <td> <img width="60" src="@(Configuration["BaseAddress"] + item.Image)" alt="" /></td>
+                    <td>@item.Description</td>
+                    <td>
+                        @item.Quantity
+                    </td>
+                    <td>@item.Price</td>
+                    <td>@(item.Quantity*item.Price)</td>
+                </tr>
+            }
+
+            <tr>
+                <td colspan="4" style="text-align:right"><strong>TOTAL =</strong></td>
+                <td class="label label-important" style="display:block"> <strong> @Model.CartItems.Sum(x => x.Quantity * x.Price).ToString("N0")</strong></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <table class="table table-bordered">
+        <tr><th>ESTIMATE YOUR SHIPPING </th></tr>
+        <tr>
+            <td>
+                <form class="form-horizontal" action="/@culture/Cart/Checkout" method="post">
+                    <div class="control-group">
+                        <label class="control-label" for="inputCountry">Name </label>
+                        <div class="controls">
+                            <input type="text" id="inputCountry" asp-for="CheckoutModel.Name" placeholder="Name">
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label" for="inputCountry">Address </label>
+                        <div class="controls">
+                            <input type="text" id="inputCountry" asp-for="CheckoutModel.Address" placeholder="Address">
+                        </div>
+                    </div>
+
+                    <div class="control-group">
+                        <label class="control-label" for="inputCountry">Email </label>
+                        <div class="controls">
+                            <input type="text" id="inputCountry" asp-for="CheckoutModel.Email" placeholder="Email">
+                        </div>
+                    </div>
+
+                    <div class="control-group">
+                        <label class="control-label" for="inputCountry">PhoneNumber </label>
+                        <div class="controls">
+                            <input type="text" id="inputCountry" asp-for="CheckoutModel.PhoneNumber" placeholder="PhoneNumber">
+                        </div>
+                    </div>
+
+                    <div class="control-group">
+                        <div class="controls">
+                            <button type="submit" class="btn">Purchase </button>
+                        </div>
+                    </div>
+                </form>
+            </td>
+        </tr>
+    </table>
+    <a href="/" class="btn btn-large"><i class="icon-arrow-left"></i> Continue Shopping </a>
+}
